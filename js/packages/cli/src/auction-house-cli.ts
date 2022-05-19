@@ -861,7 +861,10 @@ programCommand('execute_sale')
         .map(k => (k.isSigner = true));
     }
 
-    await sendTransactionWithRetryWithKeypair(
+    const {
+      txid,
+      slot
+    } = await sendTransactionWithRetryWithKeypair(
       anchorProgram.provider.connection,
       auctionHouseSigns ? auctionHouseKeypairLoaded : walletKeyPair,
       [instruction],
@@ -881,6 +884,8 @@ programCommand('execute_sale')
       buyPrice,
       'from your account with Auction House',
       auctionHouse,
+      '(txid',
+      txid + ')',
     );
   });
 
